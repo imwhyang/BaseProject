@@ -1,0 +1,116 @@
+//表示这是一个应用
+apply plugin: 'com.android.application'
+//表示这是一个库
+//apply plugin: 'com.android.library'
+android {
+//    项目编译版本-SDK
+    compileSdkVersion 26
+//    项目构建工具版本
+    buildToolsVersion '26.0.3'
+    defaultConfig {
+        //        项目包名
+        applicationId "com.example.wayne.baseproject"
+        //        最低兼容版本
+        minSdkVersion 14
+        //        编译目标版本
+        targetSdkVersion 26
+        //        版本号
+        versionCode 1
+        //        版本名
+        versionName "1.0"
+        flavorDimensions "versionCode"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    dexOptions {
+        jumboMode true
+    }
+    signingConfigs {
+        sign {
+            keyAlias 'jywapp'
+            keyPassword '123456'
+            //Mac 绝对目录
+//            storeFile file('/Users/admin/Desktop/9drug_project/9drug-android/Android_JYW/app/sign/jywapp.jks')
+            storeFile file('/sign/jywapp.jks')//windows 相对目录
+            storePassword '123456'
+        }
+    }
+    buildTypes {
+        release {
+//            是否混淆
+            minifyEnabled
+            shrinkResources false
+            zipAlignEnabled true
+            debuggable true
+//            混淆规则文件（proguard-android.txt：系统SDK规则，proguard-rules.pro:本地规则）
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.sign
+
+            buildConfigField "String", "BASE_URL", "\"http://test.shiangou.com.cn/\""
+        }
+        debug {
+//            是否混淆
+            minifyEnabled false
+//            shrinkResources false
+//            zipAlignEnabled true
+//            debuggable true
+//            混淆规则文件（proguard-android.txt：系统SDK规则，proguard-rules.pro:本地规则）
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.sign
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    //个性化配置
+    productFlavors {
+        anquan {}//360
+        anzhi {}//安智
+        baidu {}//百度
+        huawei {}//华为
+        jifeng {}//机锋
+        meizu {}//魅族
+        mumayi {}//木蚂蚁
+        Nduo {}//Nduo
+        oppo {}//oppo
+        sanxing {} //三星
+        vivo {}//vivo
+        wandoujia {}//豌豆荚
+        xiaomi {}//小米
+        yingyongbao {}//应用宝
+        yingyonghui {}//应用汇
+        youyi {}//营业执照验证失败
+
+        Env_test {
+            //BaseUrl
+            buildConfigField "String", "BASE_URL", "\"http://test.shiangou.com.cn/\""
+        }
+        Env_dev {
+            //BaseUrl
+            buildConfigField "String", "BASE_URL", "\"http://test.shiangou.com.cn/\""
+        }
+        Env_preview { //BaseUrl
+            buildConfigField "String", "BASE_URL", "\"http://test.shiangou.com.cn/\""
+        }
+        Env_release {
+            //BaseUrl
+            buildConfigField "String", "BASE_URL", "\"http://test.shiangou.com.cn/\""
+        }
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    // Retrofit库
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    // Okhttp库
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    //GsonConverter
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    //    网络请求适配器（CallAdapter）
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
